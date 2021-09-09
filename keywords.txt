@@ -1,0 +1,22 @@
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+LittleFS_MBED	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+init KEYWORD2
+mount KEYWORD2
+unmount	KEYWORD2
+littleFS_SizeInKB KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+BOARD_NAME  LITERAL1
+LFS_MBED_PORTENTA_H7_VERSION  LITERAL1
+

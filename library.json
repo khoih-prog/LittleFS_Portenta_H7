@@ -1,0 +1,29 @@
+{
+  "name": "LittleFS_Portenta_H7",
+  "version": "1.0.0",
+  "keywords": "storage, data-storage, littlefs, littlefs-mbed, flash, flash-storage, posix, file-system, file, mbed, mbed-portenta, portenta-h7",
+  "description": "This library facilitates your usage of LittleFS for the onboard flash of Arduino MBED Portenta_H7 boards. LittleFS supports power fail safety and high performance",
+  "authors":
+  {
+    "name":  "Khoi Hoang",
+    "url":   "https://github.com/khoih-prog",
+    "maintainer": true
+  },
+  "repository":
+  {
+    "type": "git",
+    "url": "//https://github.com/khoih-prog/LittleFS_Portenta_H7"
+  },
+  "homepage": "https://github.com/khoih-prog/LittleFS_Portenta_H7",
+  "export": {
+    "exclude": [
+      "linux",
+      "extras",
+      "tests"
+    ]
+  },
+  "frameworks": "*",
+  "platforms": "mbed_portenta",
+  "examples": "examples/*/*/*.ino",
+  "license": "GPL-3.0-or-later"
+}
