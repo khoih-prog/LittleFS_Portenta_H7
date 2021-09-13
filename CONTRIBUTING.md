@@ -14,7 +14,7 @@ If you don't find anything, please [open a new issue](https://github.com/khoih-p
 
 Please ensure to specify the following:
 
-* Arduino IDE version (e.g. 1.8.15) or Platform.io version
+* Arduino IDE version (e.g. 1.8.16) or Platform.io version
 * `ArduinoCore-mbed` Core Version (e.g. `ArduinoCore-mbed` mbed_portenta core v2.4.1)
 * `Portenta_H7` Board type (e.g. Portenta_H7 Rev2 ABX00042, etc.)
 * Contextual information (e.g. what you were trying to achieve)
@@ -27,7 +27,7 @@ Please ensure to specify the following:
 ### Example
 
 ```
-Arduino IDE version: 1.8.15
+Arduino IDE version: 1.8.16
 `ArduinoCore-mbed` mbed_portenta core v2.4.1
 Portenta_H7 Rev2 ABX00042
 OS: Ubuntu 20.04 LTS

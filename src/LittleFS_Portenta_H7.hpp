@@ -7,30 +7,41 @@
   Built by Khoi Hoang https://github.com/khoih-prog/LittleFS_Portenta_H7
   Licensed under MIT license
 
-  Version: 1.0.0
+  Version: 1.0.1
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      09/09/2021 Initial coding to support MBED Portenta_H7
+  1.0.1   K Hoang      13/09/2021 Select fix LittleFS size of 1024KB
 *****************************************************************************************************************************/
 
 #pragma once
 
 #ifndef _LITTLEFS_PORTENTA_H7_HPP
 #define _LITTLEFS_PORTENTA_H7_HPP
- 
+
 bool LittleFS_MBED::init()
 {
   // Get limits of the the internal flash of the microcontroller
   _flashIAPLimits = getFlashIAPLimits();
+   
+  if (_flashIAPLimits.available_size < LITTLEFS_PORTENTA_H7_SIZE_KB * 1024)
+  {
+    LFS_LOGERROR2("Max LittleFS size (KB) = ", _flashIAPLimits.available_size / 1024.0, " is too small. Must be 1024+");
+    return false;
+  }
+  
+  _sizeInKB = LITTLEFS_PORTENTA_H7_SIZE_KB;
+  
+  uint32_t deltaSize = _flashIAPLimits.available_size - LITTLEFS_PORTENTA_H7_SIZE_KB * 1024;
   
   LFS_LOGERROR1("Flash Size: (KB) = ", _flashIAPLimits.flash_size / 1024.0);
   LFS_HEXLOGERROR1("FlashIAP Start Address: = 0x", _flashIAPLimits.start_address);
-  LFS_LOGERROR1("LittleFS size (KB) = ", _flashIAPLimits.available_size / 1024.0);
-   
-  _sizeInKB = _flashIAPLimits.available_size / 1024.0;
-  
-  blockDevicePtr = new FlashIAPBlockDevice(_flashIAPLimits.start_address, _flashIAPLimits.available_size);
+  LFS_HEXLOGERROR1("New FlashIAP Start Address: = 0x", _flashIAPLimits.start_address + deltaSize);
+  LFS_LOGERROR1("Max LittleFS size (KB) = ", _flashIAPLimits.available_size / 1024.0);  
+  LFS_LOGERROR1("Current LittleFS size (KB) = ", LITTLEFS_PORTENTA_H7_SIZE_KB);
+ 
+  blockDevicePtr = new FlashIAPBlockDevice(_flashIAPLimits.start_address + deltaSize, LITTLEFS_PORTENTA_H7_SIZE_KB * 1024);
   
   if (!blockDevicePtr)
   {
