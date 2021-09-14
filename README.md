@@ -11,12 +11,10 @@
 
 ## Table of Contents
 
+* [Important Notes for Portenta_H7](#important-notes-for-portenta_h7)
 * [Why do we need this LittleFS_Portenta_H7 library](#why-do-we-need-this-LittleFS_Portenta_H7-library)
   * [Features](#features)
   * [Currently supported Boards](#currently-supported-boards)
-* [Changelog](#changelog)
-  * [Releases v1.0.1](#releases-v101)
-  * [Initial Releases v1.0.0](#initial-releases-v100)
 * [Prerequisites](#prerequisites)
 * [Installation](#installation)
   * [Use Arduino Library Manager](#use-arduino-library-manager)
@@ -34,7 +32,6 @@
   * [2. LittleFS_Test on PORTENTA_H7_M7](#2-littlefs_test-on-portenta_h7_m7)
 * [Debug](#debug)
 * [Troubleshooting](#troubleshooting)
-* [Releases](#releases)
 * [Issues](#issues)
 * [TO DO](#to-do)
 * [DONE](#done)
@@ -42,6 +39,17 @@
 * [Contributing](#contributing)
 * [License](#license)
 * [Copyright](#copyright)
+
+---
+---
+
+### Important Notes for Portenta_H7
+
+The LittleFS of the new **Portenta_H7** board currently tested OK with only **maximum 8 files**. The files, from 9 and up, somehow strangely can't be written and / or read. This is possibly a bug in the [`ArduinoCore-mbed mbed_portenta core`](https://github.com/arduino/ArduinoCore-mbed). The same behaviour is observed from core v2.0.0 up to v2.4.1.
+
+If LittleFS size is reduced to 1024KB, test is OK with only **maximum 4 files**.
+
+Beware and keep cheking for updates.
 
 ---
 ---
@@ -63,19 +71,6 @@ The filesystem access uses normal [POSIX APIs](https://www.tutorialspoint.com/c_
 ---
 ---
 
-## Changelog
-
-### Releases v1.0.1
-
-1. Change the default and minimum LITTLEFS_PORTENTA_H7_SIZE_KB to 1024KB, instead at maximum available size. This is done to avoid the cases where the code size is larger, and LittleFS size has to be changed, reformatted, leading to data loss.
-
-### Initial Releases v1.0.0
-
-1. Initial coding to support **Portenta_H7 boards** such as Portenta_H7 Rev2 ABX00042, etc., using [**ArduinoCore-mbed mbed_portenta** core](https://github.com/arduino/ArduinoCore-mbed)
-
-
----
----
 
 ## Prerequisites
 
@@ -521,12 +516,10 @@ The following is the sample terminal output when running example [LittleFS_Count
 
 ```
 Start LittleFS_Counting on PORTENTA_H7_M7
-LittleFS_Portenta_H7 v1.0.1
+LittleFS_Portenta_H7 v1.0.2
 [LFS] Flash Size: (KB) = 2048.00
 [LFS] FlashIAP Start Address: = 0x0x8080000
-[LFS] New FlashIAP Start Address: = 0x0x8100000
-[LFS] Max LittleFS size (KB) = 1536.00
-[LFS] Current LittleFS size (KB) = 1024
+[LFS] LittleFS size (KB) = 1536.00
 [LFS] LittleFS Mount OK
 Times have been run = 1
  => Open to write OK
@@ -536,12 +529,10 @@ Times have been run = 1
 
 ```
 Start LittleFS_Counting on PORTENTA_H7_M7
-LittleFS_Portenta_H7 v1.0.1
+LittleFS_Portenta_H7 v1.0.2
 [LFS] Flash Size: (KB) = 2048.00
 [LFS] FlashIAP Start Address: = 0x0x8080000
-[LFS] New FlashIAP Start Address: = 0x0x8100000
-[LFS] Max LittleFS size (KB) = 1536.00
-[LFS] Current LittleFS size (KB) = 1024
+[LFS] LittleFS size (KB) = 1536.00
 [LFS] LittleFS Mount OK
  => Open to read OK
 Times have been run = 2
@@ -555,12 +546,10 @@ The following is the sample terminal output when running example [LittleFS_Test]
 
 ```
 Start LittleFS_Test on PORTENTA_H7_M7
-LittleFS_Portenta_H7 v1.0.1
+LittleFS_Portenta_H7 v1.0.2
 [LFS] Flash Size: (KB) = 2048.00
 [LFS] FlashIAP Start Address: = 0x0x8080000
-[LFS] New FlashIAP Start Address: = 0x0x8100000
-[LFS] Max LittleFS size (KB) = 1536.00
-[LFS] Current LittleFS size (KB) = 1024
+[LFS] LittleFS size (KB) = 1536.00
 [LFS] LittleFS Mount OK
 ====================================================
 Writing file: /littlefs/hello1.txt => Open OK
@@ -639,18 +628,6 @@ Sometimes, the library will only work if you update the board core to the latest
 ---
 ---
 
-## Releases
-
-### Releases v1.0.1
-
-1. Change the default and minimum LITTLEFS_PORTENTA_H7_SIZE_KB to 1024KB, instead at maximum available size. This is done to avoid the cases where the code size is larger, and LittleFS size has to be changed, reformatted, leading to data loss.
-
-### Initial Releases v1.0.0
-
-1. Initial coding to support **Portenta_H7 boards** such as Portenta_H7 Rev2 ABX00042, etc., using [**ArduinoCore-mbed mbed_portenta** core](https://github.com/arduino/ArduinoCore-mbed)
-
----
----
 
 ### Issues
 
