@@ -22,7 +22,6 @@
   * [VS Code & PlatformIO](#vs-code--platformio)
 * [Packages' Patches](#packages-patches)
   * [1. For Portenta_H7 boards using Arduino IDE in Linux](#1-for-portenta_h7-boards-using-arduino-ide-in-linux)
-* [HOWTO Fix `Multiple Definitions` Linker Error](#howto-fix-multiple-definitions-linker-error)
 * [Examples](#examples)
   * [  1. LittleFS_Counting](examples/LittleFS_Counting)
   * [  2. LittleFS_Test](examples/LittleFS_Test)
@@ -45,7 +44,7 @@
 
 ### Important Notes for Portenta_H7
 
-The LittleFS of the new **Portenta_H7** board currently tested OK with only **maximum 8 files**. The files, from 9 and up, somehow strangely can't be written and / or read. This is possibly a bug in the [`ArduinoCore-mbed mbed_portenta core`](https://github.com/arduino/ArduinoCore-mbed). The same behaviour is observed from core v2.0.0 up to v2.4.1.
+The LittleFS of the new **Portenta_H7** board currently tested OK with only **maximum 8 files**. The files, from 9 and up, somehow strangely can't be written and / or read. This is possibly a bug in the [`ArduinoCore-mbed mbed_portenta core`](https://github.com/arduino/ArduinoCore-mbed). The same behaviour is observed from core v2.0.0 up to v2.6.1.
 
 If LittleFS size is reduced to 1024KB, test is OK with only **maximum 4 files**.
 
@@ -74,8 +73,8 @@ The filesystem access uses normal [POSIX APIs](https://www.tutorialspoint.com/c_
 
 ## Prerequisites
 
-1. [`Arduino IDE 1.8.16+` for Arduino](https://www.arduino.cc/en/Main/Software)
-2. [`ArduinoCore-mbed mbed_portenta core 2.4.1+`](https://github.com/arduino/ArduinoCore-mbed) for Arduino **Portenta_H7** boards, such as **Portenta_H7 Rev2 ABX00042, etc.**. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-mbed.svg)](https://github.com/arduino/ArduinoCore-mbed/releases/latest)
+1. [`Arduino IDE 1.8.19+` for Arduino](https://www.arduino.cc/en/Main/Software)
+2. [`ArduinoCore-mbed mbed_portenta core 2.6.1+`](https://github.com/arduino/ArduinoCore-mbed) for Arduino **Portenta_H7** boards, such as **Portenta_H7 Rev2 ABX00042, etc.**. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-mbed.svg)](https://github.com/arduino/ArduinoCore-mbed/releases/latest)
 
 ---
 ---
@@ -111,12 +110,12 @@ Another way to install is to:
 
 #### 1. For Portenta_H7 boards using Arduino IDE in Linux
 
-  **To be able to upload firmware to Portenta_H7 using Arduino IDE in Linux (Ubuntu, etc.)**, you have to copy the file [portenta_post_install.sh](Packages_Patches/arduino/hardware/mbed_portenta/2.4.1/portenta_post_install.sh) into mbed_portenta directory (~/.arduino15/packages/arduino/hardware/mbed_portenta/2.4.1/portenta_post_install.sh). 
+  **To be able to upload firmware to Portenta_H7 using Arduino IDE in Linux (Ubuntu, etc.)**, you have to copy the file [portenta_post_install.sh](Packages_Patches/arduino/hardware/mbed_portenta/2.6.1/portenta_post_install.sh) into mbed_portenta directory (~/.arduino15/packages/arduino/hardware/mbed_portenta/2.6.1/portenta_post_install.sh). 
   
   Then run the following command using `sudo`
   
 ```
-$ cd ~/.arduino15/packages/arduino/hardware/mbed_portenta/2.4.1
+$ cd ~/.arduino15/packages/arduino/hardware/mbed_portenta/2.6.1
 $ chmod 755 portenta_post_install.sh
 $ sudo ./portenta_post_install.sh
 ```
@@ -129,9 +128,9 @@ This will create the file `/etc/udev/rules.d/49-portenta_h7.rules` as follows:
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="035b", GROUP="plugdev", MODE="0666"
 ```
 
-Supposing the ArduinoCore-mbed core version is 2.4.1. Now only one file must be copied into the directory:
+Supposing the ArduinoCore-mbed core version is 2.6.1. Now only one file must be copied into the directory:
 
-- `~/.arduino15/packages/arduino/hardware/mbed_portenta/2.4.1/portenta_post_install.sh`
+- `~/.arduino15/packages/arduino/hardware/mbed_portenta/2.6.1/portenta_post_install.sh`
 
 Whenever a new version is installed, remember to copy this files into the new version directory. For example, new version is x.yy.zz
 
@@ -139,30 +138,6 @@ This file must be copied into the directory:
 
 - `~/.arduino15/packages/arduino/hardware/mbed_portenta/x.yy.zz/portenta_post_install.sh`
 
-
----
----
-
-### HOWTO Fix `Multiple Definitions` Linker Error
-
-The current library implementation, using **xyz-Impl.h instead of standard xyz.cpp**, possibly creates certain `Multiple Definitions` Linker error in certain use cases. Although it's simple to just modify several lines of code, either in the library or in the application, the library is adding 2 more source directories
-
-1. **scr_h** for new h-only files
-2. **src_cpp** for standard h/cpp files
-
-besides the standard **src** directory.
-
-To use the **old standard cpp** way, locate this library' directory, then just 
-
-1. **Delete the all the files in src directory.**
-2. **Copy all the files in src_cpp directory into src.**
-3. Close then reopen the application code in Arduino IDE, etc. to recompile from scratch.
-
-To re-use the **new h-only** way, just 
-
-1. **Delete the all the files in src directory.**
-2. **Copy the files in src_h directory into src.**
-3. Close then reopen the application code in Arduino IDE, etc. to recompile from scratch.
 
 ---
 ---
@@ -179,6 +154,9 @@ To re-use the **new h-only** way, just
 ### Example [Littlefs_Test](examples/Littlefs_Test)
 
 ```
+#define LFS_MBED_PORTENTA_H7_VERSION_MIN_TARGET      "LittleFS_Portenta_H7 v1.1.0"
+#define LFS_MBED_PORTENTA_H7_VERSION_MIN             1001000
+
 #define _LFS_LOGLEVEL_          1
 
 #define FORCE_REFORMAT          false
@@ -189,13 +167,13 @@ LittleFS_MBED *myFS;
 
 uint32_t FILE_SIZE_KB = 64;
 
-void readCharsFromFile(const char * path) 
+void readCharsFromFile(const char * path)
 {
   Serial.print("readCharsFromFile: "); Serial.print(path);
 
   FILE *file = fopen(path, "r");
-  
-  if (file) 
+
+  if (file)
   {
     Serial.println(" => Open OK");
   }
@@ -207,28 +185,28 @@ void readCharsFromFile(const char * path)
 
   char c;
 
-  while (true) 
+  while (true)
   {
     c = fgetc(file);
-    
-    if ( feof(file) ) 
-    { 
+
+    if ( feof(file) )
+    {
       break;
     }
-    else   
+    else
       Serial.print(c);
   }
-   
+
   fclose(file);
 }
 
-void readFile(const char * path) 
+void readFile(const char * path)
 {
   Serial.print("Reading file: "); Serial.print(path);
 
   FILE *file = fopen(path, "r");
-  
-  if (file) 
+
+  if (file)
   {
     Serial.println(" => Open OK");
   }
@@ -240,25 +218,25 @@ void readFile(const char * path)
 
   char c;
   uint32_t numRead = 1;
-  
-  while (numRead) 
+
+  while (numRead)
   {
     numRead = fread((uint8_t *) &c, sizeof(c), 1, file);
 
     if (numRead)
       Serial.print(c);
   }
-  
+
   fclose(file);
 }
 
-void writeFile(const char * path, const char * message, size_t messageSize) 
+void writeFile(const char * path, const char * message, size_t messageSize)
 {
   Serial.print("Writing file: "); Serial.print(path);
 
   FILE *file = fopen(path, "w");
-  
-  if (file) 
+
+  if (file)
   {
     Serial.println(" => Open OK");
   }
@@ -267,26 +245,26 @@ void writeFile(const char * path, const char * message, size_t messageSize)
     Serial.println(" => Open Failed");
     return;
   }
- 
-  if (fwrite((uint8_t *) message, 1, messageSize, file)) 
+
+  if (fwrite((uint8_t *) message, 1, messageSize, file))
   {
     Serial.println("* Writing OK");
-  } 
-  else 
+  }
+  else
   {
     Serial.println("* Writing failed");
   }
-  
+
   fclose(file);
 }
 
-void appendFile(const char * path, const char * message, size_t messageSize) 
+void appendFile(const char * path, const char * message, size_t messageSize)
 {
   Serial.print("Appending file: "); Serial.print(path);
 
   FILE *file = fopen(path, "a");
-  
-  if (file) 
+
+  if (file)
   {
     Serial.println(" => Open OK");
   }
@@ -296,23 +274,23 @@ void appendFile(const char * path, const char * message, size_t messageSize)
     return;
   }
 
-  if (fwrite((uint8_t *) message, 1, messageSize, file)) 
+  if (fwrite((uint8_t *) message, 1, messageSize, file))
   {
     Serial.println("* Appending OK");
-  } 
-  else 
+  }
+  else
   {
     Serial.println("* Appending failed");
   }
-   
+
   fclose(file);
 }
 
-void deleteFile(const char * path) 
+void deleteFile(const char * path)
 {
   Serial.print("Deleting file: "); Serial.print(path);
-  
-  if (remove(path) == 0) 
+
+  if (remove(path) == 0)
   {
     Serial.println(" => OK");
   }
@@ -323,12 +301,12 @@ void deleteFile(const char * path)
   }
 }
 
-void renameFile(const char * path1, const char * path2) 
+void renameFile(const char * path1, const char * path2)
 {
   Serial.print("Renaming file: "); Serial.print(path1);
   Serial.print(" to: "); Serial.print(path2);
-  
-  if (rename(path1, path2) == 0) 
+
+  if (rename(path1, path2) == 0)
   {
     Serial.println(" => OK");
   }
@@ -339,17 +317,17 @@ void renameFile(const char * path1, const char * path2)
   }
 }
 
-void testFileIO(const char * path) 
+void testFileIO(const char * path)
 {
   Serial.print("Testing file I/O with: "); Serial.print(path);
 
-  #define BUFF_SIZE     512
-  
+#define BUFF_SIZE     512
+
   static uint8_t buf[BUFF_SIZE];
-  
+
   FILE *file = fopen(path, "w");
-  
-  if (file) 
+
+  if (file)
   {
     Serial.println(" => Open OK");
   }
@@ -361,7 +339,7 @@ void testFileIO(const char * path)
 
   size_t i;
   Serial.println("- writing" );
-  
+
   uint32_t start = millis();
 
   size_t result = 0;
@@ -379,14 +357,14 @@ void testFileIO(const char * path)
       break;
     }
   }
-  
+
   Serial.println("");
   uint32_t end = millis() - start;
-  
+
   Serial.print(i / 2);
   Serial.print(" Kbytes written in (ms) ");
   Serial.println(end);
-  
+
   fclose(file);
 
   printLine();
@@ -394,12 +372,12 @@ void testFileIO(const char * path)
   /////////////////////////////////
 
   file = fopen(path, "r");
-  
+
   start = millis();
   end = start;
   i = 0;
-  
-  if (file) 
+
+  if (file)
   {
     start = millis();
     Serial.println("- reading" );
@@ -409,7 +387,7 @@ void testFileIO(const char * path)
     fseek(file, 0, SEEK_SET);
 
     // Read a file with FILE_SIZE_KB
-  for (i = 0; i < FILE_SIZE_KB * 2; i++)
+    for (i = 0; i < FILE_SIZE_KB * 2; i++)
     {
       result = fread(buf, BUFF_SIZE, 1, file);
 
@@ -421,17 +399,17 @@ void testFileIO(const char * path)
         break;
       }
     }
-      
+
     Serial.println("");
     end = millis() - start;
-    
+
     Serial.print((i * BUFF_SIZE) / 1024);
     Serial.print(" Kbytes read in (ms) ");
     Serial.println(end);
-    
+
     fclose(file);
-  } 
-  else 
+  }
+  else
   {
     Serial.println("- failed to open file for reading");
   }
@@ -442,30 +420,38 @@ void printLine()
   Serial.println("====================================================");
 }
 
-void setup() 
+void setup()
 {
   Serial.begin(115200);
   while (!Serial)
 
-  delay(1000);
+    delay(1000);
 
   Serial.print("\nStart LittleFS_Test on "); Serial.println(BOARD_NAME);
   Serial.println(LFS_MBED_PORTENTA_H7_VERSION);
+  
+#if defined(LFS_MBED_PORTENTA_H7_VERSION_MIN)
+  if (LFS_MBED_PORTENTA_H7_VERSION_INT < LFS_MBED_PORTENTA_H7_VERSION_MIN)
+  {
+    Serial.print("Warning. Must use this example on Version equal or later than : ");
+    Serial.println(LFS_MBED_PORTENTA_H7_VERSION_MIN_TARGET);
+  }
+#endif
 
   myFS = new LittleFS_MBED();
 
-  if (!myFS->init()) 
+  if (!myFS->init())
   {
     Serial.println("LITTLEFS Mount Failed");
-    
+
     return;
   }
- 
+
   char fileName1[] = MBED_LITTLEFS_FILE_PREFIX "/hello1.txt";
   char fileName2[] = MBED_LITTLEFS_FILE_PREFIX "/hello2.txt";
-  
+
   char message[]  = "Hello from " BOARD_NAME "\n";
-   
+
   printLine();
   writeFile(fileName1, message, sizeof(message));
   printLine();
@@ -499,7 +485,7 @@ void setup()
   Serial.println( "\nTest complete" );
 }
 
-void loop() 
+void loop()
 {
 }
 ```
@@ -516,7 +502,7 @@ The following is the sample terminal output when running example [LittleFS_Count
 
 ```
 Start LittleFS_Counting on PORTENTA_H7_M7
-LittleFS_Portenta_H7 v1.0.2
+LittleFS_Portenta_H7 v1.1.0
 [LFS] Flash Size: (KB) = 2048.00
 [LFS] FlashIAP Start Address: = 0x0x8080000
 [LFS] LittleFS size (KB) = 1536.00
@@ -529,7 +515,7 @@ Times have been run = 1
 
 ```
 Start LittleFS_Counting on PORTENTA_H7_M7
-LittleFS_Portenta_H7 v1.0.2
+LittleFS_Portenta_H7 v1.1.0
 [LFS] Flash Size: (KB) = 2048.00
 [LFS] FlashIAP Start Address: = 0x0x8080000
 [LFS] LittleFS size (KB) = 1536.00
@@ -546,7 +532,7 @@ The following is the sample terminal output when running example [LittleFS_Test]
 
 ```
 Start LittleFS_Test on PORTENTA_H7_M7
-LittleFS_Portenta_H7 v1.0.2
+LittleFS_Portenta_H7 v1.1.0
 [LFS] Flash Size: (KB) = 2048.00
 [LFS] FlashIAP Start Address: = 0x0x8080000
 [LFS] LittleFS size (KB) = 1536.00
@@ -648,6 +634,7 @@ Submit issues to: [LittleFS_Portenta_H7 issues](https://github.com/khoih-prog/Li
 2. Add Version String 
 3. Add Table of Contents
 4. Reduce `LittleFS` size to 1024KB
+5. Fix `multiple-definitions` linker error
 
 ---
 ---

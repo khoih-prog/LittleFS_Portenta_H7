@@ -7,13 +7,14 @@
   Built by Khoi Hoang https://github.com/khoih-prog/LittleFS_Portenta_H7
   Licensed under MIT license
 
-  Version: 1.0.2
+  Version: 1.1.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      09/09/2021 Initial coding to support MBED Portenta_H7
   1.0.1   K Hoang      13/09/2021 Select fix LittleFS size of 1024KB
   1.0.2   K Hoang      14/09/2021 Back to using auto LittleFS to fix bug
+  1.1.0   K Hoang      30/12/2021 Fix `multiple-definitions` linker error
 *****************************************************************************************************************************/  
 
 #pragma once

@@ -6,15 +6,10 @@
 
   Built by Khoi Hoang https://github.com/khoih-prog/LittleFS_Portenta_H7
   Licensed under MIT license
-
-  Version: 1.0.2
-
-  Version Modified By   Date      Comments
-  ------- -----------  ---------- -----------
-  1.0.0   K Hoang      09/09/2021 Initial coding to support MBED Portenta_H7
-  1.0.1   K Hoang      13/09/2021 Select fix LittleFS size of 1024KB
-  1.0.2   K Hoang      14/09/2021 Back to using auto LittleFS to fix bug
 *****************************************************************************************************************************/
+
+#define LFS_MBED_PORTENTA_H7_VERSION_MIN_TARGET      "LittleFS_Portenta_H7 v1.1.0"
+#define LFS_MBED_PORTENTA_H7_VERSION_MIN             1001000
 
 #define _LFS_LOGLEVEL_          1
 
@@ -35,6 +30,14 @@ void setup()
 
   Serial.print("\nStart LittleFS_Counting on "); Serial.println(BOARD_NAME);
   Serial.println(LFS_MBED_PORTENTA_H7_VERSION);
+
+#if defined(LFS_MBED_PORTENTA_H7_VERSION_MIN)
+  if (LFS_MBED_PORTENTA_H7_VERSION_INT < LFS_MBED_PORTENTA_H7_VERSION_MIN)
+  {
+    Serial.print("Warning. Must use this example on Version equal or later than : ");
+    Serial.println(LFS_MBED_PORTENTA_H7_VERSION_MIN_TARGET);
+  }
+#endif
 
   myFS = new LittleFS_MBED();
 
