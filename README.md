@@ -15,6 +15,7 @@
 * [Why do we need this LittleFS_Portenta_H7 library](#why-do-we-need-this-LittleFS_Portenta_H7-library)
   * [Features](#features)
   * [Currently supported Boards](#currently-supported-boards)
+* [Changelog](changelog.md) 
 * [Prerequisites](#prerequisites)
 * [Installation](#installation)
   * [Use Arduino Library Manager](#use-arduino-library-manager)
