@@ -6,7 +6,8 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](#Contributing)
 [![GitHub issues](https://img.shields.io/github/issues/khoih-prog/LittleFS_Portenta_H7.svg)](http://github.com/khoih-prog/LittleFS_Portenta_H7/issues)
 
-<a href="https://www.buymeacoffee.com/khoihprog6" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 50px !important;width: 181px !important;" ></a>
+<a href="https://www.buymeacoffee.com/khoihprog6" title="Donate to my libraries using BuyMeACoffee"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Donate to my libraries using BuyMeACoffee" style="height: 50px !important;width: 181px !important;" ></a>
+<a href="https://www.buymeacoffee.com/khoihprog6" title="Donate to my libraries using BuyMeACoffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-orange.svg?logo=buy-me-a-coffee&logoColor=FFDD00" style="height: 20px !important;width: 200px !important;" ></a>
 
 ---
 ---
@@ -77,7 +78,7 @@ The filesystem access uses normal [POSIX APIs](https://www.tutorialspoint.com/c_
 ## Prerequisites
 
 1. [`Arduino IDE 1.8.19+` for Arduino](https://www.arduino.cc/en/Main/Software)
-2. [`ArduinoCore-mbed mbed_portenta core 2.7.2+`](https://github.com/arduino/ArduinoCore-mbed) for Arduino **Portenta_H7** boards, such as **Portenta_H7 Rev2 ABX00042, etc.**. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-mbed.svg)](https://github.com/arduino/ArduinoCore-mbed/releases/latest)
+2. [`ArduinoCore-mbed mbed_portenta core 3.0.1+`](https://github.com/arduino/ArduinoCore-mbed) for Arduino **Portenta_H7** boards, such as **Portenta_H7 Rev2 ABX00042, etc.**. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-mbed.svg)](https://github.com/arduino/ArduinoCore-mbed/releases/latest)
 
 ---
 ---
@@ -102,7 +103,7 @@ Another way to install is to:
 
 1. Install [VS Code](https://code.visualstudio.com/)
 2. Install [PlatformIO](https://platformio.org/platformio-ide)
-3. Install [**LittleFS_Portenta_H7** library](https://platformio.org/lib/show/12798/LittleFS_Portenta_H7) by using [Library Manager](https://platformio.org/lib/show/12798/LittleFS_Portenta_H7/installation). Search for **LittleFS_Portenta_H7** in [Platform.io Author's Libraries](https://platformio.org/lib/search?query=author:%22Khoi%20Hoang%22)
+3. Install [**LittleFS_Portenta_H7** library](https://registry.platformio.org/libraries/khoih-prog/LittleFS_Portenta_H7) by using [Library Manager](https://registry.platformio.org/libraries/khoih-prog/LittleFS_Portenta_H7/installation). Search for **LittleFS_Portenta_H7** in [Platform.io Author's Libraries](https://platformio.org/lib/search?query=author:%22Khoi%20Hoang%22)
 4. Use included [platformio.ini](platformio/platformio.ini) file from examples to ensure that all dependent libraries will installed automatically. Please visit documentation for the other options and examples at [Project Configuration File](https://docs.platformio.org/page/projectconf.html)
 
 
@@ -113,12 +114,12 @@ Another way to install is to:
 
 #### 1. For Portenta_H7 boards using Arduino IDE in Linux
 
-  **To be able to upload firmware to Portenta_H7 using Arduino IDE in Linux (Ubuntu, etc.)**, you have to copy the file [portenta_post_install.sh](Packages_Patches/arduino/hardware/mbed_portenta/2.6.1/portenta_post_install.sh) into mbed_portenta directory (~/.arduino15/packages/arduino/hardware/mbed_portenta/2.6.1/portenta_post_install.sh). 
+  **To be able to upload firmware to Portenta_H7 using Arduino IDE in Linux (Ubuntu, etc.)**, you have to copy the file [portenta_post_install.sh](Packages_Patches/arduino/hardware/mbed_portenta/3.0.1/portenta_post_install.sh) into mbed_portenta directory (~/.arduino15/packages/arduino/hardware/mbed_portenta/3.0.1/portenta_post_install.sh). 
   
   Then run the following command using `sudo`
   
 ```
-$ cd ~/.arduino15/packages/arduino/hardware/mbed_portenta/2.6.1
+$ cd ~/.arduino15/packages/arduino/hardware/mbed_portenta/3.0.1
 $ chmod 755 portenta_post_install.sh
 $ sudo ./portenta_post_install.sh
 ```
@@ -131,9 +132,9 @@ This will create the file `/etc/udev/rules.d/49-portenta_h7.rules` as follows:
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="035b", GROUP="plugdev", MODE="0666"
 ```
 
-Supposing the ArduinoCore-mbed core version is 2.6.1. Now only one file must be copied into the directory:
+Supposing the ArduinoCore-mbed core version is 3.0.1. Now only one file must be copied into the directory:
 
-- `~/.arduino15/packages/arduino/hardware/mbed_portenta/2.6.1/portenta_post_install.sh`
+- `~/.arduino15/packages/arduino/hardware/mbed_portenta/3.0.1/portenta_post_install.sh`
 
 Whenever a new version is installed, remember to copy this files into the new version directory. For example, new version is x.yy.zz
 
@@ -157,8 +158,8 @@ This file must be copied into the directory:
 ### Example [Littlefs_Test](examples/Littlefs_Test)
 
 ```
-#define LFS_MBED_PORTENTA_H7_VERSION_MIN_TARGET      "LittleFS_Portenta_H7 v1.1.0"
-#define LFS_MBED_PORTENTA_H7_VERSION_MIN             1001000
+#define LFS_MBED_PORTENTA_H7_VERSION_MIN_TARGET      "LittleFS_Portenta_H7 v1.2.0"
+#define LFS_MBED_PORTENTA_H7_VERSION_MIN             1002000
 
 #define _LFS_LOGLEVEL_          1
 
@@ -505,7 +506,7 @@ The following is the sample terminal output when running example [LittleFS_Count
 
 ```
 Start LittleFS_Counting on PORTENTA_H7_M7
-LittleFS_Portenta_H7 v1.1.0
+LittleFS_Portenta_H7 v1.2.0
 [LFS] Flash Size: (KB) = 2048.00
 [LFS] FlashIAP Start Address: = 0x0x8080000
 [LFS] LittleFS size (KB) = 1536.00
@@ -518,7 +519,7 @@ Times have been run = 1
 
 ```
 Start LittleFS_Counting on PORTENTA_H7_M7
-LittleFS_Portenta_H7 v1.1.0
+LittleFS_Portenta_H7 v1.2.0
 [LFS] Flash Size: (KB) = 2048.00
 [LFS] FlashIAP Start Address: = 0x0x8080000
 [LFS] LittleFS size (KB) = 1536.00
@@ -535,7 +536,7 @@ The following is the sample terminal output when running example [LittleFS_Test]
 
 ```
 Start LittleFS_Test on PORTENTA_H7_M7
-LittleFS_Portenta_H7 v1.1.0
+LittleFS_Portenta_H7 v1.2.0
 [LFS] Flash Size: (KB) = 2048.00
 [LFS] FlashIAP Start Address: = 0x0x8080000
 [LFS] LittleFS size (KB) = 1536.00

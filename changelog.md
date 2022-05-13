@@ -12,6 +12,7 @@
 ## Table of Contents
 
 * [Changelog](#changelog)
+  * [Releases v1.2.0](#releases-v120)
   * [Releases v1.1.0](#releases-v110)
   * [Releases v1.0.2](#releases-v102)
   * [Releases v1.0.1](#releases-v101)
@@ -21,6 +22,11 @@
 ---
 
 ## Changelog
+
+### Releases v1.2.0
+
+1. Fix `multiple-definitions` linker error in some cases
+2. Update `Packages_Patches`
 
 ### Releases v1.1.0
 

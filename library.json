@@ -1,6 +1,6 @@
 {
   "name": "LittleFS_Portenta_H7",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "keywords": "storage, data-storage, littlefs, littlefs-mbed, flash, flash-storage, posix, file-system, file, mbed, mbed-portenta, portenta-h7, portentah7, portenta-h7-m7, portenta-h7-m4, portentah7-m7, portentah7-m4",
   "description": "This library facilitates your usage of LittleFS for the onboard flash of Arduino MBED Portenta_H7 boards. LittleFS supports power fail safety and high performance",
   "authors":
@@ -26,5 +26,5 @@
   "frameworks": "*",
   "platforms": "mbed_portenta",
   "examples": "examples/*/*/*.ino",
-  "headers": "LittleFS_Portenta_H7.h"
+  "headers": [ "LittleFS_Portenta_H7.h" ]
 }

@@ -8,8 +8,8 @@
   Licensed under MIT license
 *****************************************************************************************************************************/
 
-#define LFS_MBED_PORTENTA_H7_VERSION_MIN_TARGET      "LittleFS_Portenta_H7 v1.1.0"
-#define LFS_MBED_PORTENTA_H7_VERSION_MIN             1001000
+#define LFS_MBED_PORTENTA_H7_VERSION_MIN_TARGET      "LittleFS_Portenta_H7 v1.2.0"
+#define LFS_MBED_PORTENTA_H7_VERSION_MIN             1002000
 
 #define _LFS_LOGLEVEL_          1
 
